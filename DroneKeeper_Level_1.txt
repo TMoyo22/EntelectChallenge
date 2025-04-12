@@ -1,0 +1,4 @@
+#Constant variables
+
+Okay, ensure we cluster nearby enclosures
+Get importance ratio to prioritize enclosures
