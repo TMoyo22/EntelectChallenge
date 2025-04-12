@@ -26,7 +26,22 @@ def a_star(start, goal, obstacles, dimensions):
             (nx, ny) for nx, ny in potential_neighbors
             if 0 <= nx < dimensions[0] and 0 <= ny < dimensions[1] and (nx, ny) not in obstacles
         ]
+    
+        
 
+    def preprocess_food_storages(food_storages):
+        """
+            Preprocess food storages by grouping them based on diet type.
+            :param food_storages: List of food storages (x, y, z, capacity, diet)
+            :return: Dictionary mapping diet type to a list of food storages
+    """
+        food_storage_map = {}
+        for storage in food_storages:
+                x, y, z, capacity, diet = storage
+                if diet not in food_storage_map:
+                    food_storage_map[diet] = []
+                    food_storage_map[diet].append(storage)
+        return food_storage_map
     # Priority queue for open nodes
     open_set = []
     heapq.heappush(open_set, (0, start))
@@ -65,6 +80,17 @@ def a_star(start, goal, obstacles, dimensions):
 
     # If no path is found
     return []
+
+def distance(point1, point2):
+    """
+    Calculate the Euclidean distance between two points in 2D space.
+    :param point1: Tuple (x1, y1)
+    :param point2: Tuple (x2, y2)
+    :return: Euclidean distance between point1 and point2
+    """
+    x1, y1 = point1
+    x2, y2 = point2
+    return math.sqrt((x2 - x1)**2 + (y2 - y1)**2)
 
 # Parse the new input format
 def parse_level2_input(zoo_size, enclosures, food_storages, battery_swaps):
